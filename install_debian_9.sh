@@ -15,7 +15,7 @@ apt update && apt upgrade
 ### Virtualbox ###
 if [ $VIRTUALBOX == "YES" ] ; then
 	echo "Running Install Virtualbox"
-	apt install dkms build-essential linux-headers-$(uname -r)
+	apt install curl dkms build-essential linux-headers-$(uname -r)
 	echo "Insert VBoxLinuxAdditions CDROM and enter \"yes\""
 	read response
 	if [ $response == "yes" ] ; then
@@ -50,6 +50,7 @@ fi
 ### Atom Editor ###
 if [ $ATOM == "YES" ] ; then
 	echo "Running Install Atom Editor"
+	apt install gconf2 gvfs-bin
 	wget https://atom.io/download/deb -O atom.deb
 	dpkg -i atom.deb
 fi
