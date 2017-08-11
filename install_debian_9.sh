@@ -82,8 +82,9 @@ if [ $DOCKER == "YES" ] ; then
 	sudo chmod +x /usr/local/bin/docker-compose
 fi
 
-# Purge 
-# rm -rf /tmp/*
+# ssh-keygen -t rsa -b 4096
+# git clone git@github.com:benkenobi31/linux.git
+# git clone git@github.com:benkenobi31/docker.git
 
 echo "All Done."
 
