@@ -1,11 +1,17 @@
 #!/bin/bash
 
-VIRTUALBOX="YES"
-ARC_THEME="YES"
-SUBLIME_TEXT="YES"
-ATOM="YES"
-ECLIPSE="YES"
-DOCKER="YES"
+VIRTUALBOX="NO"
+ARC_THEME="NO"
+SUBLIME_TEXT="NO"
+ATOM="NO"
+ECLIPSE="NO"
+DOCKER="NO"
+THUNDERBIRD="YES"
+CHROME="YES"
+SSH_KEYGEN="NO"
+GIT_CLONE="YES"
+
+user=bvi
 
 cd /tmp
 
@@ -82,9 +88,37 @@ if [ $DOCKER == "YES" ] ; then
 	sudo chmod +x /usr/local/bin/docker-compose
 fi
 
-# ssh-keygen -t rsa -b 4096
-# git clone git@github.com:benkenobi31/linux.git
-# git clone git@github.com:benkenobi31/docker.git
+### Thunderbird ###
+if [ $THUNDERBIRD == "YES" ] ; then
+	echo "Running Install Thunderbird"
+	apt install thunderbird thunderbird-l10n-fr
+fi
+
+### Chrome ###
+if [ $CHROME == "YES" ] ; then
+	echo "Running Install Chrome"
+	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+	apt update && apt install google-chrome-stable
+fi
+
+### Session with $user ###
+echo "Begin session $user"
+su - $user << EOF
+	### Ssh keygen ###
+	if [ $SSH_KEYGEN == "YES" ] ; then
+	        echo "Running ssh keygen"
+	        ssh-keygen -t rsa -b 4096
+	fi
+
+	### Git Clone ###
+	if [ $GIT_CLONE == "YES" ] ; then
+	    mkdir -p /home/$user/Git
+	    cd /home/$user/Git
+	    git clone git@github.com:benkenobi31/linux.git
+	    git clone git@github.com:benkenobi31/docker.git
+	fi
+EOF
 
 echo "All Done."
 
