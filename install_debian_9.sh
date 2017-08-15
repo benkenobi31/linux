@@ -11,6 +11,7 @@ CHROME="YES"
 SSH_KEYGEN="YES"
 GIT_CLONE="NO"
 LAMP="YES"
+NODEJS="YES"
 
 cd /tmp
 
@@ -112,6 +113,14 @@ if [ $LAMP == "YES" ] ; then
         echo -e "\tRewriteEngine On"
         echo -e "</ifModule>"
     } >> /etc/apache2/apache2.conf
+fi
+
+### NODEJS ###
+if [ $NODEJS == "YES" ] ; then
+	echo "Running Install NODEJS"
+	curl -sL https://deb.nodesource.com/setup_6.x | bash -
+	apt-get install -y nodejs
+	node -v
 fi
 
 user=bvi
