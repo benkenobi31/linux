@@ -1,17 +1,16 @@
 #!/bin/bash
 
-VIRTUALBOX="NO"
-ARC_THEME="NO"
+VIRTUALBOX="YES"
+ARC_THEME="YES"
 SUBLIME_TEXT="NO"
-ATOM="NO"
+ATOM="YES"
 ECLIPSE="NO"
-DOCKER="NO"
-THUNDERBIRD="YES"
+DOCKER="YES"
+THUNDERBIRD="NO"
 CHROME="YES"
-SSH_KEYGEN="NO"
-GIT_CLONE="YES"
-
-user=bvi
+SSH_KEYGEN="YES"
+GIT_CLONE="NO"
+LAMP="YES"
 
 cd /tmp
 
@@ -101,6 +100,22 @@ if [ $CHROME == "YES" ] ; then
 	sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 	apt update && apt install google-chrome-stable
 fi
+
+### LAMP ###
+if [ $LAMP == "YES" ] ; then
+	echo "Running Install LAMP"
+	apt install openssh-server apache2 php mysql-server libapache2-mod-php php-mysql unzip php-zip phpmyadmin php-gd
+	echo "sql_mode = \"NO_ENGINE_SUBSTITUTION\"" >> /etc/mysql/my.cnf
+	a2enmod rewrite
+	{
+        echo -e "<ifModule mod_rewrite.c>"
+        echo -e "\tRewriteEngine On"
+        echo -e "</ifModule>"
+    } >> /etc/apache2/apache2.conf
+fi
+
+user=bvi
+adduser $user sudo
 
 ### Session with $user ###
 echo "Begin session $user"
