@@ -12,6 +12,7 @@ SSH_KEYGEN="YES"
 GIT_CLONE="NO"
 LAMP="YES"
 NODEJS="YES"
+MONGODB="YES"
 
 cd /tmp
 
@@ -123,6 +124,12 @@ if [ $NODEJS == "YES" ] ; then
 	node -v
 fi
 
+### MONGODB ###
+if [ $MONGODB == "YES" ] ; then
+	echo "Running Install MONGODB"
+	apt install mongodb
+fi
+
 user=bvi
 adduser $user sudo
 
@@ -145,4 +152,3 @@ su - $user << EOF
 EOF
 
 echo "All Done."
-
