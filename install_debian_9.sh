@@ -148,6 +148,7 @@ su - $user << EOF
 	    cd /home/$user/Git
 	    git clone git@github.com:benkenobi31/linux.git
 	    git clone git@github.com:benkenobi31/docker.git
+		git clone git@github.com:benkenobi31/NodeJS.git
 	fi
 EOF
 
