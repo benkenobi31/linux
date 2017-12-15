@@ -13,6 +13,8 @@ GIT_CLONE="NO"
 LAMP="YES"
 NODEJS="YES"
 MONGODB="YES"
+KAFKA="YES"
+MAVEN="YES"
 
 cd /tmp
 
@@ -150,6 +152,22 @@ su - $user << EOF
 	    git clone git@github.com:benkenobi31/docker.git
 		git clone git@github.com:benkenobi31/NodeJS.git
 	fi
+
+	if [ $KAFKA == "YES" ] ; then
+		mkdir -p /home/$user/Tools/kafka
+		cd /home/$user/Git/kafka
+		wget http://apache.crihan.fr/dist/kafka/1.0.0/kafka_2.11-1.0.0.tgz
+
+	fi
+
+	if [ $MAVEN == "YES" ] ; then
+		mkdir -p /home/$user/Tools/maven
+		cd /home/$user/Tools/maven
+		wget http://apache.mirrors.ovh.net/ftp.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip
+		unzip apache-maven-3.5.2-bin.zip
+		echo "export PATH=$PATH:/home/$user/Tools/maven/apache-maven-3.5.2/bin" >> /home/$user/.profile
+	fi
+
 EOF
 
 echo "All Done."
